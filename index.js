@@ -68,11 +68,19 @@ const run = async () => {
 			res.send(JSON.stringify(result));
 		});
 
-		// Set User on Database
-		app.post('/users', async (req, res) => {
+		// // Set User on Database
+		// app.post('/users', async (req, res) => {
+		// 	const user = req.body;
+		// 	const result = await users.insertOne(user);
+		// 	res.send(result.acknowledged);
+		// });
+		app.put('/users', async (req, res) => {
 			const user = req.body;
-			const result = await users.insertOne(user);
-			res.send(result.acknowledged);
+			const filter = { email: user.email };
+			const options = { upsert: true };
+			const updateDoc = { $set: user };
+			const result = await users.updateOne(filter, updateDoc, options);
+			res.json(result);
 		});
 		app.get('/users', async (req, res) => {
 			const result = await users.find({}).toArray();

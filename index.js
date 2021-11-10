@@ -75,7 +75,7 @@ const run = async () => {
 			res.send(result.acknowledged);
 		});
 		app.get('/users', async (req, res) => {
-			const result = await products.find({}).toArray();
+			const result = await users.find({}).toArray();
 			res.send(JSON.stringify(result));
 		});
 	} finally {

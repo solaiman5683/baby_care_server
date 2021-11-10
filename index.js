@@ -28,6 +28,7 @@ const run = async () => {
 		const db = client.db('house_plant');
 		// Selecting Collections
 		const products = db.collection('products');
+		const users = db.collection('user');
 
 		app.get('/', (req, res) => {
 			res.send('Welcome to my Application.🍃');
@@ -64,6 +65,17 @@ const run = async () => {
 			const id = req.params.id;
 			const query = { _id: ObjectId(id) };
 			const result = await products.findOne(query);
+			res.send(JSON.stringify(result));
+		});
+
+		// Set User on Database
+		app.post('/users', async (req, res) => {
+			const user = req.body;
+			const result = await users.insertOne(user);
+			res.send(result.acknowledged);
+		});
+		app.get('/users', async (req, res) => {
+			const result = await products.find({}).toArray();
 			res.send(JSON.stringify(result));
 		});
 	} finally {

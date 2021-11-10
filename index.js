@@ -98,11 +98,17 @@ const run = async () => {
 			res.json(result);
 		});
 
-		app.delete('/users', async (req, res) => {
-			const user = req.body;
-			const query = { email: user.email };
+		// app.delete('/users', async (req, res) => {
+		// 	const user = req.body;
+		// 	const query = { email: user.email };
+		// 	const result = await users.deleteOne(query);
+		// 	res.json(result);
+		// });
+		app.delete('/users/:id', async (req, res) => {
+			const id = req.params.id;
+			const query = { _id: ObjectId(id) };
 			const result = await users.deleteOne(query);
-			res.json(result);
+			res.send(JSON.stringify(result));
 		});
 	} finally {
 		// await client.close().;

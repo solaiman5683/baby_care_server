@@ -25,7 +25,7 @@ const run = async () => {
 			console.log('Database connection established');
 		});
 		// DataBase
-		const db = client.db('house_plant');
+		const db = client.db('baby_center');
 		// Selecting Collections
 		const products = db.collection('products');
 		const users = db.collection('user');

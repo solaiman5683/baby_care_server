@@ -78,6 +78,12 @@ const run = async () => {
 			const result = await users.find({}).toArray();
 			res.send(JSON.stringify(result));
 		});
+		app.get('/users/:email', async (req, res) => {
+			const email = req.params.email;
+			const filter = { email: email };
+			const result = await users.findOne(filter);
+			res.json(result);
+		});
 		app.put('/users', async (req, res) => {
 			const user = req.body;
 			const filter = { email: user.email };
@@ -97,13 +103,6 @@ const run = async () => {
 			const result = await users.updateOne(filter, updateDoc);
 			res.json(result);
 		});
-
-		// app.delete('/users', async (req, res) => {
-		// 	const user = req.body;
-		// 	const query = { email: user.email };
-		// 	const result = await users.deleteOne(query);
-		// 	res.json(result);
-		// });
 		app.delete('/users/:id', async (req, res) => {
 			const id = req.params.id;
 			const query = { _id: ObjectId(id) };

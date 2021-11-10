@@ -68,12 +68,16 @@ const run = async () => {
 			res.send(JSON.stringify(result));
 		});
 
-		// // Set User on Database
+		// Set User on Database
 		// app.post('/users', async (req, res) => {
 		// 	const user = req.body;
 		// 	const result = await users.insertOne(user);
 		// 	res.send(result.acknowledged);
 		// });
+		app.get('/users', async (req, res) => {
+			const result = await users.find({}).toArray();
+			res.send(JSON.stringify(result));
+		});
 		app.put('/users', async (req, res) => {
 			const user = req.body;
 			const filter = { email: user.email };
@@ -93,9 +97,12 @@ const run = async () => {
 			const result = await users.updateOne(filter, updateDoc);
 			res.json(result);
 		});
-		app.get('/users', async (req, res) => {
-			const result = await users.find({}).toArray();
-			res.send(JSON.stringify(result));
+
+		app.delete('/users', async (req, res) => {
+			const user = req.body;
+			const query = { email: user.email };
+			const result = await users.deleteOne(query);
+			res.json(result);
 		});
 	} finally {
 		// await client.close().;

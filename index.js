@@ -69,11 +69,6 @@ const run = async () => {
 		});
 
 		// Set User on Database
-		// app.post('/users', async (req, res) => {
-		// 	const user = req.body;
-		// 	const result = await users.insertOne(user);
-		// 	res.send(result.acknowledged);
-		// });
 		app.get('/users', async (req, res) => {
 			const result = await users.find({}).toArray();
 			res.send(JSON.stringify(result));

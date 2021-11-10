@@ -82,6 +82,17 @@ const run = async () => {
 			const result = await users.updateOne(filter, updateDoc, options);
 			res.json(result);
 		});
+		app.put('/users/admin', async (req, res) => {
+			const user = req.body;
+			const filter = { email: user.email };
+			const updateDoc = {
+				$set: {
+					role: 'admin',
+				},
+			};
+			const result = await users.updateOne(filter, updateDoc);
+			res.json(result);
+		});
 		app.get('/users', async (req, res) => {
 			const result = await users.find({}).toArray();
 			res.send(JSON.stringify(result));

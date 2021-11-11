@@ -74,7 +74,7 @@ const run = async () => {
 				$set: req.body,
 			};
 			const query = { _id: ObjectId(id) };
-			const result = await events.updateOne(query, updateProducts);
+			const result = await products.updateOne(query, updateProducts);
 			res.send(JSON.stringify(result));
 		});
 

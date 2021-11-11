@@ -145,7 +145,7 @@ const run = async () => {
 			const result = await reviews
 				.find({})
 				.sort({ _id: -1 })
-				.limit(4)
+				.limit(5)
 				.toArray();
 			res.send(JSON.stringify(result));
 		});

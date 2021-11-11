@@ -122,6 +122,13 @@ const run = async () => {
 			const result = await orders.insertOne(order);
 			res.send(result.acknowledged);
 		});
+		app.get('/orders/:id', async (req, res) => {
+			const id = req.params.id;
+			const query = { user: id };
+			const result = await orders.find(query).toArray();
+			console.log(result);
+			res.send(JSON.stringify(result));
+		});
 	} finally {
 		// await client.close().;
 	}

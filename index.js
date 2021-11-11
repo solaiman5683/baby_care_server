@@ -129,6 +129,10 @@ const run = async () => {
 			const result = await orders.find(query).toArray();
 			res.send(JSON.stringify(result));
 		});
+		app.get('/orders', async (req, res) => {
+			const result = await orders.find({}).toArray();
+			res.send(JSON.stringify(result));
+		});
 		app.delete('/orders/:id', async (req, res) => {
 			const id = req.params.id;
 			const query = { _id: ObjectId(id) };

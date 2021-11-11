@@ -129,6 +129,12 @@ const run = async () => {
 			console.log(result);
 			res.send(JSON.stringify(result));
 		});
+		app.delete('/orders/:id', async (req, res) => {
+			const id = req.params.id;
+			const query = { _id: ObjectId(id) };
+			const result = await orders.deleteOne(query);
+			res.send(JSON.stringify(result));
+		});
 	} finally {
 		// await client.close().;
 	}

@@ -67,6 +67,16 @@ const run = async () => {
 			const result = await products.findOne(query);
 			res.send(JSON.stringify(result));
 		});
+		// Update Products
+		app.put('/products/:id', async (req, res) => {
+			const id = req.params.id;
+			const updateProducts = {
+				$set: req.body,
+			};
+			const query = { _id: ObjectId(id) };
+			const result = await events.updateOne(query, updateProducts);
+			res.send(JSON.stringify(result));
+		});
 
 		// Set User on Database
 		app.get('/users', async (req, res) => {

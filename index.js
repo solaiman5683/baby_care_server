@@ -30,6 +30,7 @@ const run = async () => {
 		const products = db.collection('products');
 		const users = db.collection('user');
 		const orders = db.collection('orders');
+		const reviews = db.collection('reviews');
 
 		app.get('/', (req, res) => {
 			res.send('Welcome to my Application.🍃');
@@ -126,13 +127,26 @@ const run = async () => {
 			const id = req.params.id;
 			const query = { user: id };
 			const result = await orders.find(query).toArray();
-			console.log(result);
 			res.send(JSON.stringify(result));
 		});
 		app.delete('/orders/:id', async (req, res) => {
 			const id = req.params.id;
 			const query = { _id: ObjectId(id) };
 			const result = await orders.deleteOne(query);
+			res.send(JSON.stringify(result));
+		});
+		// Review API
+		app.post('/reviews', async (req, res) => {
+			const review = req.body;
+			const result = await reviews.insertOne(review);
+			res.send(result.acknowledged);
+		});
+		app.get('/reviews', async (req, res) => {
+			const result = await reviews
+				.find({})
+				.sort({ _id: -1 })
+				.limit(4)
+				.toArray();
 			res.send(JSON.stringify(result));
 		});
 	} finally {

@@ -29,6 +29,7 @@ const run = async () => {
 		// Selecting Collections
 		const products = db.collection('products');
 		const users = db.collection('user');
+		const orders = db.collection('orders');
 
 		app.get('/', (req, res) => {
 			res.send('Welcome to my Application.🍃');
@@ -113,6 +114,13 @@ const run = async () => {
 			const query = { _id: ObjectId(id) };
 			const result = await users.deleteOne(query);
 			res.send(JSON.stringify(result));
+		});
+
+		// Handle Orders
+		app.post('/orders', async (req, res) => {
+			const order = req.body;
+			const result = await orders.insertOne(order);
+			res.send(result.acknowledged);
 		});
 	} finally {
 		// await client.close().;
